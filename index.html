@@ -1,155 +1,128 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-PT">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Holy Sem Mota</title>
-    <!-- Tailwind CSS CDN -->
+    <title>Holy sem mota há...</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome para Ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Fonte Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap');
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Space+Grotesk', sans-serif;
+            background-color: #0b0f19;
+            color: #f3f4f6;
         }
-        /* Animação suave para os números */
-        .number-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: transform 0.2s ease, border-color 0.2s ease;
+        .glow-effect {
+            box-shadow: 0 0 50px -10px rgba(239, 68, 68, 0.25);
         }
-        .number-card:hover {
-            transform: translateY(-2px);
-            border-color: rgba(239, 68, 68, 0.4);
+        .card-glow {
+            box-shadow: 0 4px 20px -2px rgba(239, 68, 68, 0.15);
         }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-red-500 selection:text-white">
+<body class="min-h-screen flex flex-col justify-between p-4 md:p-8">
 
-    <header class="w-full max-w-5xl mx-auto p-4 sm:p-6 flex justify-between items-center z-10">
-        <div class="flex items-center space-x-2 text-red-500 font-bold text-xl tracking-wider">
-            <i class="fa-solid fa-motorcycle opacity-50"></i>
-            <span>HOLY COUNTER</span>
+    <!-- Header -->
+    <header class="max-w-4xl mx-auto w-full flex justify-between items-center py-4">
+        <div class="flex items-center space-x-2">
+            <i class="fa-solid fa-motorcycle text-red-500 text-2xl"></i>
+            <span class="font-bold text-xl tracking-wider text-red-500">HOLY COUNTER</span>
         </div>
-        
-        <div>
-            <!-- Botão de Partilha -->
-            <button id="shareBtn" class="p-2.5 rounded-xl bg-red-600/20 text-red-400 border border-red-500/30 hover:bg-red-600 hover:text-white transition text-sm flex items-center space-x-2">
-                <i class="fa-solid fa-share-nodes"></i>
-                <span class="hidden sm:inline">Partilhar</span>
-            </button>
-        </div>
+        <button onclick="shareLink()" class="px-4 py-2 bg-red-900/30 hover:bg-red-900/50 text-red-400 border border-red-800/50 rounded-lg font-medium text-sm transition-all flex items-center gap-2">
+            <i class="fa-solid fa-share-nodes"></i> Partilhar
+        </button>
     </header>
 
-    <main class="flex-grow flex flex-col justify-center items-center px-4 py-8 text-center relative overflow-hidden">
-        <!-- Efeito de luz ao fundo -->
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-red-600/10 rounded-full blur-3xl -z-10 pointer-events-none"></div>
-
-        <div class="max-w-4xl mx-auto w-full">
-            <!-- Ícone Principal -->
-            <div class="inline-flex items-center justify-center p-4 bg-red-500/10 border border-red-500/20 rounded-2xl mb-6 text-red-500 text-3xl sm:text-4xl">
-                <i class="fa-solid fa-person-walking"></i>
-            </div>
-
-            <!-- Título Principal -->
-            <h1 class="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-slate-100 mb-8 sm:mb-12">
-                Holy sem mota há:
-            </h1>
-
-            <!-- Grid do Contador -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 mb-10 w-full max-w-3xl mx-auto">
-                
-                <!-- Card Dias -->
-                <div class="number-card p-4 sm:p-6 rounded-2xl flex flex-col justify-center items-center">
-                    <span id="days" class="text-4xl sm:text-6xl font-black tracking-tight text-white mb-1">00</span>
-                    <span class="text-xs sm:text-sm font-semibold text-slate-400 uppercase tracking-widest">Dias</span>
-                </div>
-
-                <!-- Card Horas -->
-                <div class="number-card p-4 sm:p-6 rounded-2xl flex flex-col justify-center items-center">
-                    <span id="hours" class="text-4xl sm:text-6xl font-black tracking-tight text-white mb-1">00</span>
-                    <span class="text-xs sm:text-sm font-semibold text-slate-400 uppercase tracking-widest">Horas</span>
-                </div>
-
-                <!-- Card Minutos -->
-                <div class="number-card p-4 sm:p-6 rounded-2xl flex flex-col justify-center items-center">
-                    <span id="minutes" class="text-4xl sm:text-6xl font-black tracking-tight text-white mb-1">00</span>
-                    <span class="text-xs sm:text-sm font-semibold text-slate-400 uppercase tracking-widest">Minutos</span>
-                </div>
-
-                <!-- Card Segundos -->
-                <div class="number-card p-4 sm:p-6 rounded-2xl flex flex-col justify-center items-center border-red-500/20">
-                    <span id="seconds" class="text-4xl sm:text-6xl font-black tracking-tight text-red-500 mb-1">00</span>
-                    <span class="text-xs sm:text-sm font-semibold text-slate-400 uppercase tracking-widest">Segundos</span>
-                </div>
-
-            </div>
-
-            <!-- Data de Início Exibida -->
-            <p class="text-slate-400 text-sm">
-                Desde: <span id="startDateDisplay" class="text-slate-200 font-medium">31 de março de 2026 às 00:00</span>
-            </p>
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto w-full flex-1 flex flex-col justify-center items-center text-center my-12">
+        
+        <!-- Icon Banner -->
+        <div class="w-20 h-20 bg-red-500/10 border border-red-500/20 rounded-2xl flex items-center justify-center mb-8 glow-effect">
+            <i class="fa-solid fa-person-walking text-red-500 text-3xl"></i>
         </div>
+
+        <!-- Title -->
+        <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-8">
+            Holy sem mota há:
+        </h1>
+
+        <!-- Timer Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 w-full max-w-2xl mb-8">
+            <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-6 flex flex-col justify-center items-center card-glow">
+                <span id="days" class="text-5xl md:text-6xl font-black text-white">00</span>
+                <span class="text-xs md:text-sm uppercase tracking-widest text-gray-400 font-semibold mt-2">Dias</span>
+            </div>
+            <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-6 flex flex-col justify-center items-center card-glow">
+                <span id="hours" class="text-5xl md:text-6xl font-black text-white">00</span>
+                <span class="text-xs md:text-sm uppercase tracking-widest text-gray-400 font-semibold mt-2">Horas</span>
+            </div>
+            <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-6 flex flex-col justify-center items-center card-glow">
+                <span id="minutes" class="text-5xl md:text-6xl font-black text-white">00</span>
+                <span class="text-xs md:text-sm uppercase tracking-widest text-gray-400 font-semibold mt-2">Minutos</span>
+            </div>
+            <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-6 flex flex-col justify-center items-center card-glow">
+                <span id="seconds" class="text-5xl md:text-6xl font-black text-red-500">00</span>
+                <span class="text-xs md:text-sm uppercase tracking-widest text-gray-400 font-semibold mt-2">Segundos</span>
+            </div>
+        </div>
+
+        <p class="text-gray-400 text-sm">
+            Desde: <span id="startDateDisplay" class="font-medium text-gray-200">31 de março de 2026 às 00:00</span>
+        </p>
     </main>
 
-    <footer class="w-full max-w-5xl mx-auto p-4 sm:p-6 border-t border-slate-900 mt-8">
-        <p class="text-center text-xs text-slate-600">Holy sem mota © <span id="year"></span></p>
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-gray-800 text-white px-4 py-3 rounded-lg shadow-xl border border-gray-700 hidden flex items-center gap-2">
+        <i class="fa-solid fa-check text-green-400"></i>
+        <span>Link copiado para a área de transferência!</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="max-w-4xl mx-auto w-full text-center text-gray-600 text-xs py-4">
+        Holy sem mota © 2026
     </footer>
 
     <script>
-        // Data Fixa de Início: 31 de Março de 2026 às 00:00
-        const START_DATE = new Date('2026-03-31T00:00:00');
+        // Limpa qualquer cache antiga do navegador para forçar a data fixa
+        localStorage.removeItem('holyStartDate');
 
-        // Elementos do DOM
-        const daysEl = document.getElementById('days');
-        const hoursEl = document.getElementById('hours');
-        const minutesEl = document.getElementById('minutes');
-        const secondsEl = document.getElementById('seconds');
-        const shareBtn = document.getElementById('shareBtn');
+        // Data fixa: 31 de Março de 2026 às 00:00:00
+        const startDate = new Date(2026, 2, 31, 0, 0, 0);
 
-        // Definir ano atual no rodapé
-        document.getElementById('year').textContent = new Date().getFullYear();
-
-        // Atualizar o contador em tempo real
-        function updateCounter() {
+        function updateTimer() {
             const now = new Date();
-            const diffMs = now - START_DATE;
+            const diff = now - startDate;
 
-            if (diffMs < 0) {
-                daysEl.textContent = "00";
-                hoursEl.textContent = "00";
-                minutesEl.textContent = "00";
-                secondsEl.textContent = "00";
+            if (diff < 0) {
+                document.getElementById('days').innerText = "00";
+                document.getElementById('hours').innerText = "00";
+                document.getElementById('minutes').innerText = "00";
+                document.getElementById('seconds').innerText = "00";
                 return;
             }
 
-            const seconds = Math.floor((diffMs / 1000) % 60);
-            const minutes = Math.floor((diffMs / (1000 * 60)) % 60);
-            const hours = Math.floor((diffMs / (1000 * 60 * 60)) % 24);
-            const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / 1000 / 60) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
 
-            daysEl.textContent = String(days).padStart(2, '0');
-            hoursEl.textContent = String(hours).padStart(2, '0');
-            minutesEl.textContent = String(minutes).padStart(2, '0');
-            secondsEl.textContent = String(seconds).padStart(2, '0');
+            document.getElementById('days').innerText = String(days).padStart(2, '0');
+            document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+            document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
         }
 
-        // Partilhar / Copiar Link
-        shareBtn.addEventListener('click', () => {
-            const shareUrl = window.location.href;
-            
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(shareUrl).then(showShareSuccess);
-            } else {
-                const input = document.createElement('input');
-                input.value = shareUrl;
-                document.body.appendChild(input);
-                input.select();
-                document.execCommand('copy');
-                document.body.removeChild(input);
-                showShareSuccess();
-            }
-        });
+        function shareLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                const toast = document.getElementById('toast');
+                toast.classList.remove('hidden');
+                setTimeout(() => toast.classList.add('hidden'), 3000);
+            });
+        }
+
+        setInterval(updateTimer, 1000);
+        updateTimer();
+    </script>
+</body>
+</html>
